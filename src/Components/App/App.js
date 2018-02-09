@@ -46,10 +46,15 @@ class App extends React.Component {
   this.search = this.search.bind(this);
   }
 
-  search(term) {
-     console.log(term);
-     Spotify.getAccessToken();
-		 this.setState({searchResults: Spotify.search(term)});
+//Q1：Why doesn't this work?
+  // search(term) {
+  //    let tracks = Spotify.search(term);
+	// 	 this.setState({searchResults: tracks});
+  // }
+
+  search(Term) {
+    //search return a promise which is the object containing tracks
+    Spotify.search(Term).then(tracks => this.setState({searchResults: tracks}));
   }
 
   addTrack(track) {
@@ -62,7 +67,7 @@ class App extends React.Component {
     }
   }
 
-  // Old method: problematic as one click removes all. But why?
+  // Q2： Old method: problematic as one click removes all. But why?
   // removeTrack(track) {
   //     let playlist = this.state.playlistTracks.filter(song => song.id !== track.id);
   //     this.setState({playlistTracks: playlist});

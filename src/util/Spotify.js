@@ -25,6 +25,7 @@ const Spotify = {
 
   search(term) {
     const accessToken = Spotify.getAccessToken();
+    //search return a promise which is the object containing tracks info
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -56,7 +57,7 @@ const Spotify = {
   return fetch('https://api.spotify.com/v1/me', {headers: headers})
     .then(response => response.json())
       .then(jsonResponse => {
-        let user_id = jsonResponse.id; 
+        let user_id = jsonResponse.id;
       }
       );
 //should {user_id} here in the url needs to be ${user_id}?
