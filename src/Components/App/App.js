@@ -53,17 +53,29 @@ class App extends React.Component {
   }
 
   addTrack(track) {
-    if(!this.state.playlistTracks.find(song => song.id === track.id)) {
+    if(this.state.playlistTracks.indexOf(track) === -1) {
       let tracks = this.state.playlistTracks;
       tracks.push(track);
       this.setState({playlistTracks: tracks});
+      console.log(track);
+      console.log(this.state.playlistTracks);
     }
   }
 
+  // Old method: problematic as one click removes all. But why?
+  // removeTrack(track) {
+  //     let playlist = this.state.playlistTracks.filter(song => song.id !== track.id);
+  //     this.setState({playlistTracks: playlist});
+  // }
+
+
   removeTrack(track) {
-    this.setState({playlistTracks:
-      this.state.playlistTracks.filter(song => {song.id !== track.id})});
+    let playlist = this.state.playlistTracks;
+    playlist.splice(this.state.playlistTracks.indexOf(track), 1);
+    this.setState({playlistTracks: playlist});
   }
+
+
 
   updatePlaylistName(name) {
     this.setState({playlistName: name});

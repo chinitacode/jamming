@@ -53,14 +53,13 @@ const Spotify = {
       };
       const user_id = '';
 
-   fetch('https://api.spotify.com/v1/me', {headers: headers})
+  return fetch('https://api.spotify.com/v1/me', {headers: headers})
     .then(response => response.json())
-      .then(jsonResponse =>
-        {
-        const user_id = jsonResponse.id;
-        }
+      .then(jsonResponse => {
+        let user_id = jsonResponse.id; 
+      }
       );
-
+//should {user_id} here in the url needs to be ${user_id}?
   fetch('https://api.spotify.com/v1/users/{user_id}/playlists',
 	      {headers: headers,
 		     method: 'POST',
@@ -71,6 +70,7 @@ const Spotify = {
         .then(jsonResponse =>
           {
           const playlistID = jsonResponse.id;
+          return playlistID;
           }
         );
 

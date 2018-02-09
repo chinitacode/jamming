@@ -8,6 +8,7 @@ class SearchResults extends React.Component {
       <div className="SearchResults">
         <h2>Results</h2>
         <TrackList
+          isRemoval={false}
           onAdd={this.props.onAdd}
           tracks={this.props.searchResults} />
       </div>
