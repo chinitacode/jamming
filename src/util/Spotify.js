@@ -61,29 +61,27 @@ let Spotify = {
         Authorization:  `Bearer ${accessToken}`
       };
       const user_id = '';
-      $.ajax({
-         url: 'https://api.spotify.com/v1/me',
-         headers: headers,
-         type: 'GET',
-         dataType: 'json',
-         success(response) {
-           return response.json();
-           const user_id = jsonResponse.id;
-   }
-});
 
-     $.ajax({
-        url: `https://api.spotify.com/v1/users/{user_id}/playlists`,
-        type: 'POST',
-        headers: headers,
-        data: JSON.stringify({user_id: user_id}),
-        dataType: 'json',
-        contentType: 'application/json',
-        success(response) {
-          return response.json();
-          const playlistID = jsonResponse.id;
+   fetch('https://api.spotify.com/v1/me', {headers: headers})
+    .then(response => response.json())
+      .then(jsonResponse =>
+        {
+        const user_id = jsonResponse.id;
         }
-      });
+      );
+
+  fetch('https://api.spotify.com/v1/users/{user_id}/playlists',
+	      {headers: headers,
+		     method: 'POST',
+		     body: JSON.stringify({user_id: user_id})
+		   },
+		  )
+      .then(response => response.json())
+        .then(jsonResponse =>
+          {
+          const playlistID = jsonResponse.id;
+          }
+        );
 
     } else {return;}
   }
