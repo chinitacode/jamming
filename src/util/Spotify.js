@@ -1,6 +1,6 @@
 let accessToken = '';
 const client_id = '141316f87a3b470aa6cb7ffa3aa3e320';
-      const redirect_uri = 'http://localhost:3000';
+      const redirect_uri = 'https://localhost:3000/';
 
 let Spotify = {
   getAccessToken() {
@@ -53,6 +53,39 @@ let Spotify = {
 			});
          } else {return [];}
      });
+  },
+
+  savePlaylist(playlistName, trackURIs) {
+    if(playlistName, trackURIs) {
+      const headers = {
+        Authorization:  `Bearer ${accessToken}`
+      };
+      const user_id = '';
+      $.ajax({
+         url: 'https://api.spotify.com/v1/me',
+         headers: headers,
+         type: 'GET',
+         dataType: 'json',
+         success(response) {
+           return response.json();
+           const user_id = jsonResponse.id;
+   }
+});
+
+     $.ajax({
+        url: `https://api.spotify.com/v1/users/{user_id}/playlists`,
+        type: 'POST',
+        headers: headers,
+        data: JSON.stringify({user_id: user_id}),
+        dataType: 'json',
+        contentType: 'application/json',
+        success(response) {
+          return response.json();
+          const playlistID = jsonResponse.id;
+        }
+      });
+
+    } else {return;}
   }
 
 };
