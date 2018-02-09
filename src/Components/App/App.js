@@ -62,8 +62,8 @@ class App extends React.Component {
       let tracks = this.state.playlistTracks;
       tracks.push(track);
       this.setState({playlistTracks: tracks});
-      console.log(track);
-      console.log(this.state.playlistTracks);
+    //  console.log(track);
+    //  console.log(this.state.playlistTracks);
     }
   }
 
@@ -86,7 +86,7 @@ class App extends React.Component {
     this.setState({playlistName: name});
   }
 
-  //not sure if this is right
+  // Q3： not sure if this is right
   savePlaylist() {
 
     let trackURIs = this.state.playlistTracks.map(track => track.uri);

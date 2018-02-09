@@ -52,16 +52,17 @@ const Spotify = {
       const headers = {
         Authorization:  `Bearer ${accessToken}`
       };
-      const user_id = '';
+      let user_id = '';
 
-  return fetch('https://api.spotify.com/v1/me', {headers: headers})
+   fetch('https://api.spotify.com/v1/me', {headers: headers})
     .then(response => response.json())
       .then(jsonResponse => {
-        let user_id = jsonResponse.id;
+        user_id = jsonResponse.id;
+        console.log(jsonResponse);
       }
       );
-//should {user_id} here in the url needs to be ${user_id}?
-  fetch('https://api.spotify.com/v1/users/{user_id}/playlists',
+
+  return fetch('https://api.spotify.com/v1/users/${user_id}/playlists',
 	      {headers: headers,
 		     method: 'POST',
 		     body: JSON.stringify({user_id: user_id})
@@ -72,6 +73,7 @@ const Spotify = {
           {
           const playlistID = jsonResponse.id;
           return playlistID;
+          console.log(jsonResponse);
           }
         );
 
