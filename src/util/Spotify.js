@@ -47,39 +47,37 @@ const Spotify = {
   },
 
   savePlaylist(playlistName, trackURIs) {
-    if(playlistName, trackURIs) {
+    //Question: can I write if(!playlistName || !trackURIs) instead?
+      if (!playlistName || !trackURIs.length) {
+        return;
+      }
       const accessToken = Spotify.getAccessToken();
-      const headers = {
-        Authorization:  `Bearer ${accessToken}`
-      };
-      let user_id = '';
-
-   fetch('https://api.spotify.com/v1/me', {headers: headers})
-    .then(response => response.json())
-      .then(jsonResponse => {
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      let user_id;
+      return fetch('https://api.spotify.com/v1/me', {headers: headers}
+      ).then(response => response.json()
+      ).then(jsonResponse => {
         user_id = jsonResponse.id;
         console.log(jsonResponse);
-      }
-      );
-
-  return fetch('https://api.spotify.com/v1/users/${user_id}/playlists',
-	      {headers: headers,
-		     method: 'POST',
-		     body: JSON.stringify({user_id: user_id})
-		   },
-		  )
-      .then(response => response.json())
-        .then(jsonResponse =>
-          {
-          const playlistID = jsonResponse.id;
-          return playlistID;
-          console.log(jsonResponse);
-          }
-        );
-
-    } else {return;}
-  }
-
+        return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
+          headers: headers,
+          contentType: 'application/json',
+          method: 'POST',
+          body: JSON.stringify({name: playlistName})
+        }).then(response => response.json()
+        ).then(jsonResponse => {
+          const playlistId = jsonResponse.id;
+          return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists/${playlistId}/tracks`, {
+            headers: headers,
+            contentType: 'application/json',
+            method: 'POST',
+            body: JSON.stringify({uris: trackURIs})
+            //Get all the trackURIs of the playlist
+            //A comma-separated list of Spotify track URIs to add to a playlist.
+          });
+        });
+});
+}
 };
 
 export default Spotify;

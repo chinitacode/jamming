@@ -53,7 +53,7 @@ class App extends React.Component {
   // }
 
   search(Term) {
-    //search return a promise which is the object containing tracks
+    //search return a promise which is the object containing tracks(and track.uri)
     Spotify.search(Term).then(tracks => this.setState({searchResults: tracks}));
   }
 
@@ -86,16 +86,18 @@ class App extends React.Component {
     this.setState({playlistName: name});
   }
 
-  // Q3： not sure if this is right
+  // the promise returned by Spotify.savePlaylist() must be resolved first
+  // then to change the state, or else the app will break down
+  //the idea is to confirm the data has been received and ready to use
   savePlaylist() {
-
     let trackURIs = this.state.playlistTracks.map(track => track.uri);
-    Spotify.savePlaylist();
-    this.setState({
-      playlistName: 'New Playlist',
-      searchResults: []
-  });
-  }
+    Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() =>
+        this.setState({
+          playlistName: 'New Playlist', //why doesn't the name update to this after clicking saving?
+          searchResults: []
+          })
+            );
+        }
 
 
 
