@@ -47,7 +47,6 @@ const Spotify = {
   },
 
   savePlaylist(playlistName, trackURIs) {
-    //Question: can I write if(!playlistName || !trackURIs) instead?
       if (!playlistName || !trackURIs.length) {
         return;
       }

@@ -19,14 +19,9 @@ class App extends React.Component {
   this.search = this.search.bind(this);
   }
 
-//Q1：Why doesn't this work?
-  // search(term) {
-  //    let tracks = Spotify.search(term);
-	// 	 this.setState({searchResults: tracks});
-  // }
-
   search(Term) {
-    //search return a promise which is the object containing tracks(and track.uri)
+    //Spotify.search return a promise which is the object containing tracks(and track.uri)
+    //The data has to be received first to be ready to use
     Spotify.search(Term).then(tracks => this.setState({searchResults: tracks}));
   }
 
@@ -35,17 +30,8 @@ class App extends React.Component {
       let tracks = this.state.playlistTracks;
       tracks.push(track);
       this.setState({playlistTracks: tracks});
-    //  console.log(track);
-    //  console.log(this.state.playlistTracks);
     }
   }
-
-  // Q2： Old method: problematic as one click removes all. But why?
-  // removeTrack(track) {
-  //     let playlist = this.state.playlistTracks.filter(song => song.id !== track.id);
-  //     this.setState({playlistTracks: playlist});
-  // }
-
 
   removeTrack(track) {
     let playlist = this.state.playlistTracks;

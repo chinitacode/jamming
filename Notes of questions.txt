@@ -1,0 +1,47 @@
+  //Q： Old method: problematic as one click removes all. But why?
+  
+  removeTrack(track) {
+      let playlist = this.state.playlistTracks.filter(song => song.id !== track.id);
+      this.setState({playlistTracks: playlist});
+  }
+  
+  
+  
+   removeTrack(track) {
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+    this.setState({playlistTracks: tracks});
+  }
+  
+    savePlaylist(playlistName, trackURIs) {
+    //Question: can I write if(!playlistName || !trackURIs) instead?
+      if (!playlistName || !trackURIs.length) {
+        return;
+      }
+      const accessToken = Spotify.getAccessToken();
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      let user_id;
+      return fetch('https://api.spotify.com/v1/me', {headers: headers} //get spotify user id
+      ).then(response => response.json()
+      ).then(jsonResponse => {
+        user_id = jsonResponse.id;
+        console.log(jsonResponse);
+        return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
+          headers: headers,
+          contentType: 'application/json',
+          method: 'POST',
+          body: JSON.stringify({name: playlistName}) //add playlist
+        }).then(response => response.json()
+        ).then(jsonResponse => {
+          const playlistId = jsonResponse.id;
+          return fetch(`https://api.spotify.com/v1/users/${user_id}/playlists/${playlistId}/tracks`, {
+            headers: headers,
+            contentType: 'application/json',
+            method: 'POST',
+            body: JSON.stringify({uris: trackURIs}) //add tracks
+            //Get all the trackURIs of the playlist
+            //A comma-separated list of Spotify track URIs to add to a playlist.
+          });
+        });
+});
+}
