@@ -8,6 +8,9 @@ class Track extends React.Component {
     this.removeTrack = this.removeTrack.bind(this);
   }
 
+//write logic to toggling the add/remove icon
+//the value of this.props.isRemoval is different in <Tracklist /> depending on from where
+//(<SearchResults /> or <Playlist />) it is passed
   renderAction() {
     if(this.props.isRemoval) {
       return (<a className="Track-action" onClick={this.removeTrack}>-</a>);
