@@ -1,7 +1,7 @@
 let accessToken = '';
 const client_id = '141316f87a3b470aa6cb7ffa3aa3e320';
-      const redirect_uri = 'http://localhost:3000/';
-
+const redirect_uri = 'https://dreary-fold.surge.sh/';
+//const redirectURI = 'http://localhost:3000/'
 const Spotify = {
 
   getAccessToken() {
