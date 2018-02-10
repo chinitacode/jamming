@@ -8,36 +8,9 @@ import Spotify from '../../util/Spotify';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {searchResults: [
-      {
-        name: 'Ruin',
-        artist: 'Shawn Mendes',
-        album: 'Illuminate'
-      },
-      {
-        name: 'Something Just Like This',
-        artist: 'The Chainsmokers, Coldplay',
-        album: 'Memories Do Not Open'
-      },
-      {
-        name: 'Stitches',
-        artist: 'Shawn Mendes',
-        album: 'Handwritten(Deluxe)'
-      }
-    ],
-    playlistName: 'Pop',
-    playlistTracks: [
-      {
-      name: 'Stronger',
-      artist: 'Britney Spears',
-      album: 'Oops!... I Did It Again'
-    },
-    {
-      name: 'Kissing Strangers',
-      artist: 'DNCE',
-      album: 'Kissing Strangers'
-    }
-  ]
+    this.state = {searchResults: [],
+    playlistName: 'New Playlist',
+    playlistTracks: []
 };
   this.addTrack = this.addTrack.bind(this);
   this.removeTrack = this.removeTrack.bind(this);
@@ -93,7 +66,7 @@ class App extends React.Component {
     let trackURIs = this.state.playlistTracks.map(track => track.uri);
     Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() =>
         this.setState({
-          playlistName: 'New Playlist', 
+          playlistName: 'New Playlist',
           searchResults: []
           })
             );

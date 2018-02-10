@@ -41,7 +41,7 @@ const Spotify = {
         name: track.name,
         artist: track.artists[0].name,
         album: track.album.name,
-        uri: track.uri
+        uri: track.uri // only by searching new songs will return songs with trackURIs
       }));
     });
   },
@@ -54,7 +54,7 @@ const Spotify = {
       const accessToken = Spotify.getAccessToken();
       const headers = { Authorization: `Bearer ${accessToken}` };
       let user_id;
-      return fetch('https://api.spotify.com/v1/me', {headers: headers}
+      return fetch('https://api.spotify.com/v1/me', {headers: headers} //get spotify user id
       ).then(response => response.json()
       ).then(jsonResponse => {
         user_id = jsonResponse.id;
@@ -63,7 +63,7 @@ const Spotify = {
           headers: headers,
           contentType: 'application/json',
           method: 'POST',
-          body: JSON.stringify({name: playlistName})
+          body: JSON.stringify({name: playlistName}) //add playlist
         }).then(response => response.json()
         ).then(jsonResponse => {
           const playlistId = jsonResponse.id;
@@ -71,7 +71,7 @@ const Spotify = {
             headers: headers,
             contentType: 'application/json',
             method: 'POST',
-            body: JSON.stringify({uris: trackURIs})
+            body: JSON.stringify({uris: trackURIs}) //add tracks
             //Get all the trackURIs of the playlist
             //A comma-separated list of Spotify track URIs to add to a playlist.
           });
