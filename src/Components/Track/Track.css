@@ -1,18 +1,29 @@
 .Track {
   display: flex;
+  flex-direction: row;
   align-items: center;
   border-bottom: 1px solid rgba(256, 256, 256, 0.8);
 }
+.Track div {
+  border: 2px;
+}
 
 .Track-action {
+
   cursor: pointer;
   padding: .5rem;
   font-size: 1.05rem;
   transition: color .25s;
+  justify-content: flex-end center;
 }
 
 .Track-action:hover {
   color: rgba(265, 265, 265, .5);
+}
+.Track-image img{
+  height: 72px;
+  width: 72px;
+  justify-content: center;
 }
 
 .Track-information {

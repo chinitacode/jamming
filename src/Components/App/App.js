@@ -8,7 +8,8 @@ import Spotify from '../../util/Spotify';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {searchResults: [],
+    this.state = {
+    searchResults: [],
     playlistName: 'New Playlist',
     playlistTracks: []
 };
@@ -30,15 +31,25 @@ class App extends React.Component {
       let tracks = this.state.playlistTracks;
       tracks.push(track);
       this.setState({playlistTracks: tracks});
+//at the same time remove track from search results:
+     let searchResultsList = this.state.searchResults;
+     searchResultsList = searchResultsList.filter(selectedResult => selectedResult.id !== track.id);
+     this.setState({searchResults: searchResultsList});
     }
   }
-
+//Don't modify state directly, create a new array containing the new state instead
   removeTrack(track) {
-    let playlist = this.state.playlistTracks;
-    playlist.splice(this.state.playlistTracks.indexOf(track), 1);
-    this.setState({playlistTracks: playlist});
-  }
+   let tracks = this.state.playlistTracks;
+   tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+   this.setState({playlistTracks: tracks});
+ }
 
+//Method 2: (workable)
+  // removeTrack(track) {
+  //     let playlist = this.state.playlistTracks;
+  //     playlist.splice(playlist.indexOf(track), 1);
+  //     this.setState({playlistTracks: playlist});
+  //   }
 
 
   updatePlaylistName(name) {

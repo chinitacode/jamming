@@ -41,7 +41,8 @@ const Spotify = {
         name: track.name,
         artist: track.artists[0].name,
         album: track.album.name,
-        uri: track.uri // only by searching new songs will return songs with trackURIs
+        uri: track.uri, // only by searching new songs will return songs with trackURIs
+        imageUrl: track.album.images[0].url
       }));
     });
   },
